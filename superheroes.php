@@ -62,8 +62,10 @@ $superheroes = [
       "biography" => "Notably powerful, Wanda Maximoff has fought both against and with the Avengers, attempting to hone her abilities and do what she believes is right to help the world.",
   ], 
 ];
-if (isset($_GET['query'])) {
-    $query = $_GET['query'];
+
+$query = isset($_GET['query']) ? htmlspecialchars(trim($_GET['query'])) : '';
+
+if (!empty($query)) {
     $found = false;
 
     foreach ($superheroes as $superhero) {
@@ -77,7 +79,7 @@ if (isset($_GET['query'])) {
     }
 
     if (!$found) {
-        echo "<p>SUPERHERO NOT FOUND</p>";
+        echo "<p class='not-found'>SUPERHERO NOT FOUND</p>";
     }
 } else {
     echo "<ul>";
@@ -87,9 +89,3 @@ if (isset($_GET['query'])) {
     echo "</ul>";
 }
 ?>
-
-<ul>
-<?php foreach ($superheroes as $superhero): ?>
-  <li><?= $superhero['alias']; ?></li>
-<?php endforeach; ?>
-</ul>
